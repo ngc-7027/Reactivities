@@ -5,9 +5,10 @@ interface Props {
     closeForm: () => void;
     activity: Activity | undefined;
     createOrEdit: (activity: Activity) => void;
+    submitting: boolean;
 }
 
-function ActivityForm({closeForm, activity: selectedActivity, createOrEdit}: Props) {
+function ActivityForm({closeForm, activity: selectedActivity, createOrEdit, submitting}: Props) {
 
     const initialState = selectedActivity ?? {
         id: '',
@@ -43,7 +44,7 @@ function ActivityForm({closeForm, activity: selectedActivity, createOrEdit}: Pro
                     <input type="text" placeholder="Category" value={activity.category} name="category" onChange={handleInputChange} />
                 </div>
                 <div className="field">
-                    <input type="text" placeholder="Date" value={activity.date} name="date" onChange={handleInputChange} />
+                    <input type="date" placeholder="Date" value={activity.date} name="date" onChange={handleInputChange} />
                 </div>
                 <div className="field">
                     <input type="text" placeholder="City" value={activity.city} name="city" onChange={handleInputChange} />
@@ -52,7 +53,7 @@ function ActivityForm({closeForm, activity: selectedActivity, createOrEdit}: Pro
                     <input type="text" placeholder="Venue" value={activity.venue} name="venue" onChange={handleInputChange} />
                 </div>
                 <button onClick={closeForm} className="ui button floated right" type="submit">Cancel</button>
-                <button className="ui button floated right green" type="submit">Submit</button>
+                <button className={submitting ? 'loading ui button floated right green' : 'ui button floated right green'} type="submit">Submit</button>
             </form>
         </div>
     )
