@@ -1,14 +1,10 @@
+import { observer } from 'mobx-react-lite';
 import React, { ChangeEvent, useState } from 'react';
-import { Activity } from '../../../app/models/activity';
+import { useStore } from '../../../app/stores/store';
 
-interface Props {
-    closeForm: () => void;
-    activity: Activity | undefined;
-    createOrEdit: (activity: Activity) => void;
-    submitting: boolean;
-}
-
-function ActivityForm({closeForm, activity: selectedActivity, createOrEdit, submitting}: Props) {
+function ActivityForm() {
+    const { activityStore } = useStore();
+    const { closeForm, selectedActivity, createActivity, updateActivity, loading } = activityStore;
 
     const initialState = selectedActivity ?? {
         id: '',
@@ -23,7 +19,7 @@ function ActivityForm({closeForm, activity: selectedActivity, createOrEdit, subm
     const [activity, setActivity] = useState(initialState);
 
     function handleSubmit() {
-        createOrEdit(activity);
+        activity.id ? updateActivity(activity) : createActivity(activity);
     }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -53,10 +49,10 @@ function ActivityForm({closeForm, activity: selectedActivity, createOrEdit, subm
                     <input type="text" placeholder="Venue" value={activity.venue} name="venue" onChange={handleInputChange} />
                 </div>
                 <button onClick={closeForm} className="ui button floated right" type="submit">Cancel</button>
-                <button className={submitting ? 'loading ui button floated right green' : 'ui button floated right green'} type="submit">Submit</button>
+                <button className={loading ? 'loading ui button floated right green' : 'ui button floated right green'} type="submit">Submit</button>
             </form>
         </div>
     )
 }
 
-export default ActivityForm;
+export default observer(ActivityForm);

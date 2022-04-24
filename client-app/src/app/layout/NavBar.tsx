@@ -1,10 +1,9 @@
 import React from 'react';
+import { useStore } from '../stores/store';
 
-interface Props {
-    openForm: () => void;
-}
+function NavBar() {
+    const { activityStore } = useStore();
 
-function NavBar({openForm}: Props) {
     return (
         <div className="ui inverted menu fixed">
             <div className="item">
@@ -12,7 +11,7 @@ function NavBar({openForm}: Props) {
                 Reactivities
                 </div>
             <a className="item">Activities</a>
-            <a className="item"><button onClick={openForm} className="ui green button">Create Activity</button></a>
+            <a className="item"><button onClick={ () => activityStore.openForm() } className="ui green button">Create Activity</button></a>
         </div>
     )
 }

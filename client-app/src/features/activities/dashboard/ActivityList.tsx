@@ -1,14 +1,11 @@
+import { observer } from 'mobx-react-lite';
 import React, { SyntheticEvent, useState } from 'react';
-import { Activity } from '../../../app/models/activity';
+import { useStore } from '../../../app/stores/store';
 
-interface Props {
-    activities: Activity[];
-    selectActivity: (id: string) => void;
-    deleteActivity: (id: string) => void;
-    submitting: boolean;
-}
+function ActivityList() {
+    const { activityStore } = useStore();
+    const { deleteActivity, activitiesByDate, loading } = activityStore;
 
-function ActivityList({activities, selectActivity, deleteActivity, submitting}: Props) {
     const [target, setTarget] = useState('');
 
     function handleActivityDelete(e: SyntheticEvent<HTMLButtonElement>, id: string) {
@@ -19,7 +16,7 @@ function ActivityList({activities, selectActivity, deleteActivity, submitting}: 
     return (
         <div className='ui placeholder segment'>
         <div className="ui divided items">
-            { activities.map(activity => (
+            { activitiesByDate.map(activity => (
                 <div key={activity.id} className='ui item'>
                 <div className="content">
                     <div className="ui header">{activity.title}</div>
@@ -29,11 +26,11 @@ function ActivityList({activities, selectActivity, deleteActivity, submitting}: 
                         <p>{activity.city}</p>
                     </div>
                     <div className='ui extra'>
-                        <button onClick={() => selectActivity(activity.id)} className='ui right floated button blue'>View</button>
+                        <button onClick={() => activityStore.selectActivity(activity.id)} className='ui right floated button blue'>View</button>
                         <button 
                         name={activity.id}
                         onClick={(e) => handleActivityDelete(e, activity.id)} 
-                        className={(submitting && target === activity.id) ? 'loading ui right floated button red' : 'ui right floated button red'}>Delete</button>
+                        className={(loading && target === activity.id) ? 'loading ui right floated button red' : 'ui right floated button red'}>Delete</button>
                         <div className='ui label'>{activity.category}</div>
                     </div>
                     </ div>
@@ -44,4 +41,4 @@ function ActivityList({activities, selectActivity, deleteActivity, submitting}: 
     )
 }
 
-export default ActivityList;
+export default observer(ActivityList);

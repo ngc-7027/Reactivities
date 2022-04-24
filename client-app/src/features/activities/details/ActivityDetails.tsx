@@ -1,13 +1,13 @@
 import React from 'react';
-import { Activity } from '../../../app/models/activity';
+import LoadingComponent from '../../../app/layout/LoadingComponent';
+import { useStore } from '../../../app/stores/store';
 
-interface Props {
-    activity: Activity;
-    cancelSelectActivity: () => void;
-    openForm: (id: string) => void;
-}
+function ActivityDetails() {
+    const { activityStore } = useStore();
+    const { selectedActivity: activity, openForm, cancelSelectedActivity } = activityStore;
 
-function ActivityDetails({activity, cancelSelectActivity, openForm}: Props) {
+    if (!activity) return <LoadingComponent />;
+
     return (
         <div className="ui card fluid">
         <div className="image">
@@ -25,7 +25,7 @@ function ActivityDetails({activity, cancelSelectActivity, openForm}: Props) {
         <div className="extra content">
             <div className="ui buttons two">
             <button onClick={() => openForm(activity.id)} className="ui attached button basic blue">Edit</button>
-            <button onClick={cancelSelectActivity} className="ui attached button basic gray">Cancel</button>
+            <button onClick={cancelSelectedActivity} className="ui attached button basic gray">Cancel</button>
             </div>
         </div>
         </div>
