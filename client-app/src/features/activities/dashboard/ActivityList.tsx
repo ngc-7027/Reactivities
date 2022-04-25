@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { SyntheticEvent, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useStore } from '../../../app/stores/store';
 
 function ActivityList() {
@@ -26,7 +27,7 @@ function ActivityList() {
                         <p>{activity.city}</p>
                     </div>
                     <div className='ui extra'>
-                        <button onClick={() => activityStore.selectActivity(activity.id)} className='ui right floated button blue'>View</button>
+                        <Link to={`/activities/${ activity.id }`} className='ui right floated button blue'>View</Link>
                         <button 
                         name={activity.id}
                         onClick={(e) => handleActivityDelete(e, activity.id)} 

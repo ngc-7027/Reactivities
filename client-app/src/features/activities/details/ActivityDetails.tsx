@@ -1,12 +1,21 @@
-import React from 'react';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react-lite';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { useStore } from '../../../app/stores/store';
 
 function ActivityDetails() {
     const { activityStore } = useStore();
-    const { selectedActivity: activity, openForm, cancelSelectedActivity } = activityStore;
+    const { selectedActivity: activity, loadActivity, loadingInitial } = activityStore;
+    const {id} = useParams<{id: string}>();
 
-    if (!activity) return <LoadingComponent />;
+    useEffect(() => {
+        if (id) loadActivity(id);
+    }, [id, loadActivity]);
+
+    if (loadingInitial || !activity) return <LoadingComponent />;
 
     return (
         <div className="ui card fluid">
@@ -24,12 +33,12 @@ function ActivityDetails() {
         </div>
         <div className="extra content">
             <div className="ui buttons two">
-            <button onClick={() => openForm(activity.id)} className="ui attached button basic blue">Edit</button>
-            <button onClick={cancelSelectedActivity} className="ui attached button basic gray">Cancel</button>
+            <Link to={`/manage/${activity.id}`} className="ui attached button basic blue">Edit</Link>
+            <Link to='/activities' className="ui attached button basic gray">Cancel</Link>
             </div>
         </div>
         </div>
     )
 }
 
-export default ActivityDetails;
+export default observer(ActivityDetails);
