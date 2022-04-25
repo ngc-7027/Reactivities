@@ -1,7 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
+import 'react-calendar/dist/Calendar.css';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { useStore } from '../../../app/stores/store';
+import ActivityFilters from './ActivityFilters';
 import ActivityList from './ActivityList';
 
 function ActivityDashboard () {
@@ -21,7 +23,7 @@ function ActivityDashboard () {
                 <ActivityList />
             </div>
             <div className='six wide column'>
-                <h2>Activity filters</h2>
+                <ActivityFilters />
             </div>
         </div>
     )

@@ -12,14 +12,16 @@ function App() {
 
   return (
     <>
+    <Routes>
+    <Route path='/' element={ <HomePage /> }></Route>
+      </Routes>
       <NavBar />
       <div className="reactivities-container">
         <Routes>
-          <Route path='/' element={ <HomePage /> }></Route>
           <Route path='/activities' element={ <ActivityDashboard /> }></Route>
           <Route path='/activities/:id' element={ <ActivityDetails /> }></Route>
           {["/createActivity", "/manage/:id"].map((path, index) => 
-          <Route path={path} element={<ActivityForm key={index} />} key={index}></Route>)}
+          <Route path={path} element={<ActivityForm key={index} />}></Route>)}
         </Routes>
       </div>
     </>        

@@ -11,3 +11,32 @@ body {
   padding: 7em !important;
   margin: auto !important;
 }
+
+.react-calendar {
+  width: 100% !important;
+  border: none !important;
+  box-shadow: 0 1px 2px 0 rgba(34,36,38,.15) !important;
+}
+
+.masthead {
+  background-image: linear-gradient(
+          135deg,
+          rgb(24, 42, 115) 0%,
+          rgb(33, 138, 174) 69%,
+          rgb(32, 167, 172) 89%
+  ) !important;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+.masthead .masthead-container {
+  margin: auto;
+  text-align: center;
+}
+.masthead + .ui.inverted.menu.fixed {
+  background-image: none !important;
+  background-color: rgb(36, 36, 36);
+}
