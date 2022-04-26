@@ -10,6 +10,7 @@ function NavBar() {
                 Reactivities
             </Link>
             <NavLink to="/activities" className="item">Activities</NavLink>
+            <NavLink to="/testerrors" className="item">Errors Tests</NavLink>
             <div className="item disabled"><Link to='/createActivity'><button className="ui green button">Create Activity</button></Link></div>
         </div>
     )
